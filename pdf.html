@@ -1,0 +1,124 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="resources/html2canvas.js" type="text/javascript"></script>
+        <script src="resources/jspdf.js" type="text/javascript"></script>
+        
+        <script>
+            $(document).ready(function(){
+                
+                rendertry("A4");
+            });
+            function rendertry(format){
+                    
+                   var doc_width = 210;
+                   var doc_height = 297;
+                   var left_padding = 10;
+                   var top_padding = 10;
+                   //Dividing by 3.78 converts px to mm
+                   var divwidth = $('#test').width()/3.78;
+                   var divheight = $('#test').height()/3.78;
+                   try{
+                       var pdf = new jsPDF('p', 'mm', [ doc_width,  doc_height]);
+                 
+                   }catch(e){
+                    alert(e);
+                   }
+                 
+                
+                var disclaimer = document.getElementById('test');
+                try{
+                html2canvas(disclaimer,{
+                    scale:5
+                }).then(function(canvas) {
+                canvas.toBlob(function(blob) {
+                    try{
+                        
+                       var url = window.URL || window.webkitURL;
+                       var imgSrc = url.createObjectURL(blob);
+                       var img = new Image();
+                        img.src = imgSrc;
+                        img.onload = function () {
+                            //occupied_height+= top1_height+gap;
+                           
+                            pdf.addImage(img, left_padding,
+                            top_padding, divwidth,divheight  );
+                            
+                            pdf.save();
+                            
+                        }; 
+                        
+                    }catch(e){
+                        alert(e);
+                    }
+                     
+                     
+                },'image/jpeg',1);
+            });
+        }catch(e){
+            alert(e);
+        }
+            
+               
+            }
+            
+        </script>
+     
+    </head>
+    <body style="">
+        <div >
+            <table id="test" border="1px solid black" cellspacing="10">
+                <Tr>
+                    <Td>
+                        a
+                    </Td>
+                    <Td>
+                        b
+                    </Td>
+                    <Td>
+                        c
+                    </Td>
+                    
+                </Tr>
+                <Tr>
+                    <Td>
+                        a
+                    </Td>
+                    <Td>
+                        b
+                    </Td>
+                    <Td>
+                        c
+                    </Td>
+                    
+                </Tr>
+                <Tr>
+                    <Td>
+                        a
+                    </Td>
+                    <Td>
+                        b
+                    </Td>
+                    <Td>
+                        c
+                    </Td>
+                    
+                </Tr>
+                <Tr>
+                    <Td>
+                        a
+                    </Td>
+                    <Td>
+                        b
+                    </Td>
+                    <Td>
+                        c
+                    </Td>
+                    
+                </Tr>
+            </table>
+        </div>
+    </body>
+</html>
