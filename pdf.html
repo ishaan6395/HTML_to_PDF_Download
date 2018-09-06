@@ -12,7 +12,15 @@
                 rendertry("A4");
             });
             function rendertry(format){
-                    
+				   var doc_width = 210;
+                   var doc_height = 297;
+                   if(format=="A4"){
+					doc_width = 210;
+					doc_height = 297;
+				   }else if(format=="Letter"){
+					doc_width = 215;
+					doc_height = 279.4;
+				   }
                    var doc_width = 210;
                    var doc_height = 297;
                    var left_padding = 10;
